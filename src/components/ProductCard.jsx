@@ -1,24 +1,70 @@
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-import Card from 'react-bootstrap/Card';
+const ProductCard = (props) => {
+  console.log(props);
+  const {
+    image,
+    id,
+    name,
+    price,
+    newPrice,
+    dampingRate,
+    increase,
+    amount,
+    decrease,
+  } = props;
 
-const ProductCard = (props) =>{
+  return (
+    <Card
+      className="d-flex row mb-3 justify-content-center align-items-center"
+      style={{ width: "32rem" }}
+    >
+      <Row>
+        <Col>
+          <Card.Img style={{ width: "90%" }} variant="top" src={image} />
+        </Col>
 
+        <Col>
+          <Card.Body className="align-items-center ">
+            <Card.Title>{name}</Card.Title>
+            <Card.Text className="d-flex align-items-center">
+              <h2>${price} </h2>
+              <small className="mx-3">
+                <del>${(price / dampingRate).toFixed(2)}</del>{" "}
+              </small>
+            </Card.Text>
+            <div className="d-flex align-items-center justify-content-between">
+              <Button
+                variant="primary"
+                className="px-3"
+                onClick={() => decrease(id)}
+              >
+                -
+              </Button>
 
-    
-    return ( 
-        <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
+              <h3>{amount}</h3>
+              <Button
+                className="px-3"
+                variant="primary"
+                onClick={() => increase(id)}
+              >
+                +
+              </Button>
+            </div>
+
+            <div className=" d-flex  mt-3 justify-content-center ">
+              <Button style={{ width: "100%" }} variant="danger">
+                Remove
+              </Button>
+            </div>
+          </Card.Body>
+        </Col>
+      </Row>
     </Card>
-    )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;
