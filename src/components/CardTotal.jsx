@@ -1,18 +1,13 @@
 import ProductCard from "./ProductCard";
-import data from "../helper/data"
+import data from "../helper/data";
 import { useState } from "react";
 
-
 const CardTotal = () => {
+  const { id, name, image } = data;
+  const [newData, setNewData] = useState(data);
 
-const {id, name, image} = data
-const [newData,setNewData] = useState(data)
-const [amount,setAmount] = useState(1)
-const [newPrice, setNewPrice ] = useState()
-
-
-const multiply = (productId) => {
-    const updatedData = newData.map(item => {
+  const multiply = (productId) => {
+    const updatedData = newData.map((item) => {
       if (item.id === productId) {
         return { ...item, newPrice: item.amount * item.price };
       }
@@ -21,29 +16,21 @@ const multiply = (productId) => {
     setNewData(updatedData);
   };
 
-
-
-
-const increase = (productId) => {
-    const updatedData = newData.map(item => {
+  const increase = (productId) => {
+    const updatedData = newData.map((item) => {
       if (item.id === productId) {
         multiply(productId);
-        return ( 
-            { ...item, amount: item.amount + 1 }
-            
-            )
-
+        return { ...item, amount: item.amount + 1 };
       }
-     
+
       return item;
     });
     setNewData(updatedData);
-    
   };
 
   const decrease = (productId) => {
-    const updatedData = newData.map(item => {
-      if (item.id === productId && item.amount > 1 )  {
+    const updatedData = newData.map((item) => {
+      if (item.id === productId && item.amount > 1) {
         return { ...item, amount: item.amount - 1 };
       }
       return item;
@@ -51,47 +38,59 @@ const increase = (productId) => {
     setNewData(updatedData);
   };
 
-
-  const subtotal = data.reduce((total, item) => {
+  const subtotal = newData.reduce((total, item) => {
     return total + item.price * item.amount;
   }, 0);
+
+  const tax = (subtotal * 0.18).toFixed(2);
+  const shipping = 300;
 
   return (
     <div className="d-flex justify-content-center mt-5">
       <div className="row">
-        <div >
+        <div>
           <h2>Card Total</h2>
         </div>
 
-        <div >
-
-        { newData.map((item) => {
+        <div>
+          {newData.map((item) => {
             return (
-            <ProductCard amount={amount} decrease={decrease }increase={increase} newPrice={newPrice}  key={item.id} 
-            {...item}  /> 
-            )
-        })}
-        <div  >
-        <div className="d-flex justify-content-between">
-         <h3>Subtotal</h3> <h3>${subtotal}</h3>
-         </div>
-          <hr />
-          <div className="d-flex justify-content-between">
-         <h3>Tax</h3> <h3>300</h3>
-         </div>
-          <hr />
-          <div className="d-flex justify-content-between">
-         <h3>Shipping</h3> <h3>300</h3>
-         </div>
-          <hr />
-          <div className="d-flex justify-content-between">
-         <h3>Total</h3> <h3>300</h3>
-         </div>
-          <hr />
-        
+              <ProductCard
+                amount={item.amount}
+                decrease={decrease}
+                increase={increase}
+                key={item.id}
+                {...item}
+              />
+            );
+          })}
+          <div className="" style={{ width: "30rem" }}>
+            <div className="d-flex justify-content-between">
+              <h3>Subtotal</h3> <h3>${subtotal.toFixed(2)}</h3>
+            </div>
+            <hr />
+            <div className="d-flex justify-content-between">
+              <h3>Tax</h3> <h3>${tax}</h3>
+            </div>
+            <hr />
+            <div className="d-flex justify-content-between">
+              <h3>Shipping</h3> <h3>${shipping}</h3>
+            </div>
+            <hr />
+            <div className="d-flex justify-content-between">
+              <h3>Total</h3>{" "}
+              <h3>
+                $
+                {(
+                  parseFloat(subtotal) +
+                  parseFloat(tax) +
+                  parseFloat(shipping)
+                ).toFixed(2)}
+              </h3>
+            </div>
+            <hr />
           </div>
         </div>
-
       </div>
     </div>
   );
