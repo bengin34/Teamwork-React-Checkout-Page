@@ -4,7 +4,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const ProductCard = (props) => {
-  console.log(props);
   const {
     image,
     id,
@@ -15,7 +14,7 @@ const ProductCard = (props) => {
     increase,
     amount,
     decrease,
-    deleteProduct
+    deleteProduct,
   } = props;
 
   return (
@@ -25,7 +24,7 @@ const ProductCard = (props) => {
     >
       <Row>
         <Col>
-          <Card.Img style={{ width: "90%" }} variant="top" src={image} />
+          <Card.Img style={{ width: "90%", height:"90%" }} variant="top" src={image} />
         </Col>
 
         <Col>
@@ -57,10 +56,10 @@ const ProductCard = (props) => {
             </div>
 
             <div className=" d-flex  mt-3 justify-content-center ">
-              <Button 
-              style={{ width: "100%" }} 
-              variant="danger"
-              onClick={() => deleteProduct(id)}
+              <Button
+                style={{ width: "100%" }}
+                variant="danger"
+                onClick={() => deleteProduct(id)}
               >
                 Remove
               </Button>
