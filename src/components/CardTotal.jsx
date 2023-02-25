@@ -1,31 +1,34 @@
 import ProductCard from "./ProductCard";
 // import data from "../helper/data";
 import { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 
 const CardTotal = () => {
   const [newData, setNewData] = useState([]);
 
+  const BASE_URL = "https://63f9f851897af748dcc6a604.mockapi.io/products";
 
-  const getProductsFromApi = async() =>{
-try {
-  const BASE_URL = "https://63f9f851897af748dcc6a604.mockapi.io/products"
-  const  { data }  =  await axios(BASE_URL)
-    setNewData(data)
+  const getProductsFromApi = async () => {
+    try {
+      const { data } = await axios(BASE_URL);
+      setNewData(data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-  getProductsFromApi()
-  },[])
+    getProductsFromApi();
+  }, []);
 
-
-
-
-
-
+  const deleteProduct = async (id) => {
+    try {
+      await axios.delete(`${BASE_URL}/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+    getProductsFromApi();
+  };
 
   // const multiply = (productId) => {
   //   const updatedData = newData.map((item) => {
@@ -40,7 +43,7 @@ try {
   const increase = (productId) => {
     const updatedData = newData.map((item) => {
       if (item.id === productId) {
-        multiply(productId);
+        // multiply(productId);
         return { ...item, amount: item.amount + 1 };
       }
 
@@ -69,49 +72,53 @@ try {
   return (
     <div className="d-flex justify-content-center mt-5">
       <div className="row">
-        <div>
-          <h2>Card Total</h2>
-        </div>
-
-        <div>
-          {newData.map((item) => {
-            return (
-              <ProductCard
-                amount={item.amount}
-                decrease={decrease}
-                increase={increase}
-                key={item.id}
-                {...item}
-              />
-            );
-          })}
-          <div className="" style={{ width: "30rem" }}>
-            <div className="d-flex justify-content-between">
-              <h3>Subtotal</h3> <h3>${subtotal.toFixed(2)}</h3>
+        {newData?.length > 0 ? (
+          <div>
+            {newData.map((item) => {
+              return (
+                <>
+                  <h1>Cart Total</h1>
+                  <ProductCard
+                    deleteProduct={deleteProduct}
+                    amount={item.amount}
+                    decrease={decrease}
+                    increase={increase}
+                    key={item.id}
+                    {...item}
+                  />
+                </>
+              );
+            })}
+            <div className="" style={{ width: "30rem" }}>
+              <div className="d-flex justify-content-between">
+                <h3>Subtotal</h3> <h3>${subtotal.toFixed(2)}</h3>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-between">
+                <h3>Tax</h3> <h3>${tax}</h3>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-between">
+                <h3>Shipping</h3> <h3>${shipping}</h3>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-between">
+                <h3>Total</h3>{" "}
+                <h3>
+                  $
+                  {(
+                    parseFloat(subtotal) +
+                    parseFloat(tax) +
+                    parseFloat(shipping)
+                  ).toFixed(2)}
+                </h3>
+              </div>
+              <hr />
             </div>
-            <hr />
-            <div className="d-flex justify-content-between">
-              <h3>Tax</h3> <h3>${tax}</h3>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between">
-              <h3>Shipping</h3> <h3>${shipping}</h3>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between">
-              <h3>Total</h3>{" "}
-              <h3>
-                $
-                {(
-                  parseFloat(subtotal) +
-                  parseFloat(tax) +
-                  parseFloat(shipping)
-                ).toFixed(2)}
-              </h3>
-            </div>
-            <hr />
           </div>
-        </div>
+        ) : (
+          <h1>Please add a new product</h1>
+        )}
       </div>
     </div>
   );

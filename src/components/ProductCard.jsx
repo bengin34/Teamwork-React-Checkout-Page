@@ -15,6 +15,7 @@ const ProductCard = (props) => {
     increase,
     amount,
     decrease,
+    deleteProduct
   } = props;
 
   return (
@@ -56,7 +57,11 @@ const ProductCard = (props) => {
             </div>
 
             <div className=" d-flex  mt-3 justify-content-center ">
-              <Button style={{ width: "100%" }} variant="danger">
+              <Button 
+              style={{ width: "100%" }} 
+              variant="danger"
+              onClick={() => deleteProduct(id)}
+              >
                 Remove
               </Button>
             </div>
