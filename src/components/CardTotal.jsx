@@ -1,88 +1,8 @@
 import ProductCard from "./ProductCard";
-// import data from "../helper/data";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
+
 
 const CardTotal = ({newData,deleteProduct,increase,decrease}) => {
 
-
-  // const BASE_URL = "https://63f9f851897af748dcc6a604.mockapi.io/products";
-
-  // const getProductsFromApi = async () => {
-  //   try {
-  //     const { data } = await axios(BASE_URL);
-  //     setNewData(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getProductsFromApi();
-  // }, []);
-
-  // const deleteProduct = async (id) => {
-  //   try {
-  //     await axios.delete(`${BASE_URL}/${id}`);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   getProductsFromApi();
-  // };
-
-
-
-// const handleSubmit = (e) => {
-
-// e.preventDefault()
-// // const newProduct = {name,amount,price,image,}
-// postProduct()
-// getProductsFromApi()
-// }
-
-// const postProduct = async (newProduct) => {
-//   try {
-//     await axios.post(BASE_URL, newProduct)
-//   } catch (error) {
-//     console.log(error)
-//   }
-  
-// }
- 
-
-
-
-  // const multiply = (productId) => {
-  //   const updatedData = newData.map((item) => {
-  //     if (item.id === productId) {
-  //       return { ...item, newPrice: item.amount * item.price };
-  //     }
-  //     return item;
-  //   });
-  //   setNewData(updatedData);
-  // };
-
-  // const increase = (productId) => {
-  //   const updatedData = newData.map((item) => {
-  //     if (item.id === productId) {
-  //       // multiply(productId);
-  //       return { ...item, amount: item.amount + 1 };
-  //     }
-
-  //     return item;
-  //   });
-  //   setNewData(updatedData);
-  // };
-
-  // const decrease = (productId) => {
-  //   const updatedData = newData.map((item) => {
-  //     if (item.id === productId && item.amount > 1) {
-  //       return { ...item, amount: item.amount - 1 };
-  //     }
-  //     return item;
-  //   });
-  //   setNewData(updatedData);
-  // };
 
   const subtotal = newData?.reduce((total, item) => {
     return total + item.price * item.amount;
