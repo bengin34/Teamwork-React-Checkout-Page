@@ -31,7 +31,7 @@ const CardTotal = ({newData,deleteProduct,increase,decrease}) => {
                 </>
               );
             })}
-            <div className="" style={{ width: "30rem" }}>
+            <div className="" style={{ maxWidth: "30rem" }}>
               <div className="d-flex justify-content-between">
                 <h3>Subtotal</h3> <h3>${subtotal.toFixed(2)}</h3>
               </div>

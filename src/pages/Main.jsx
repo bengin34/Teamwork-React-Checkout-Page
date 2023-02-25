@@ -4,6 +4,7 @@ import CardTotal from "../components/CardTotal";
 import { useState,useEffect } from "react";
 import AddProduct from "../components/AddProduct";
 import axios from "axios";
+import { Row, Col } from "react-bootstrap";
 
 const Main = () => {
   const [showAddProduct, setShowAddProduct] = useState(false);
@@ -70,8 +71,9 @@ const Main = () => {
       <ShowButton hideShowFunc={hideShowFunc} showAddProduct={showAddProduct} />
       
         <h1 className="d-flex justify-content-center text-danger mt-2">Card Total</h1>
-      {showAddProduct ? (
-        <div className="d-flex justify-content-center ">
+        
+      {/* {showAddProduct ? (
+        <div className="d-flex  justify-content-center ">
           {" "}
           <AddProduct getProductsFromApi={getProductsFromApi} /> 
           <CardTotal newData={newData} deleteProduct={deleteProduct} increase={increase} decrease={decrease}  getProductsFromApi={getProductsFromApi}/>
@@ -79,7 +81,26 @@ const Main = () => {
         </div>
       ) : (
         <CardTotal  newData={newData} deleteProduct={deleteProduct} increase={increase} decrease={decrease} getProductsFromApi={getProductsFromApi}/>
-      )}
+      )} */}
+      <Row className="d-flex justify-content-center">
+        <Col xs={12} sm={showAddProduct ? 4 : 12} >
+          {showAddProduct && (
+
+            <AddProduct getProductsFromApi={getProductsFromApi} />
+          )}
+        </Col>
+
+        <Col xs={12} sm={showAddProduct ? 4 : 12} md={showAddProduct ? 6 : 12}>
+          <CardTotal
+            newData={newData}
+            deleteProduct={deleteProduct}
+            increase={increase}
+            decrease={decrease}
+            getProductsFromApi={getProductsFromApi}
+          />
+        </Col>
+      </Row>
+
     </div>
   );
 };

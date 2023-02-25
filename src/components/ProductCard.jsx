@@ -9,7 +9,6 @@ const ProductCard = (props) => {
     id,
     name,
     price,
-    newPrice,
     dampingRate,
     increase,
     amount,
@@ -18,16 +17,22 @@ const ProductCard = (props) => {
   } = props;
 
   return (
+    
+    
     <Card
-      className="d-flex row mb-3 justify-content-center align-items-center"
-      style={{ width: "32rem" }}
+      className="d-flex flex-wrap mb-3 col-xs-10 justify-content-center align-items-center"
+      style={{ maxWidth: "32rem", minWidth:"10rem"}}
     >
       <Row>
-        <Col>
-          <Card.Img style={{ width: "90%", height:"90%" }} variant="top" src={image} />
+        <Col  className="d-flex flex-wrap" lg={6} md={6} sm={12} xs={10} xl={6}>
+          <Card.Img
+            style={{ maxWidth: "90%", maxHeight: "90%" }}
+            variant="top"
+            src={image}
+          />
         </Col>
 
-        <Col>
+        <Col className="d-flex flex-wrap" lg={6} md={6} sm={12} xs={10} xl={6}>
           <Card.Body className="align-items-center ">
             <Card.Title>{name}</Card.Title>
             <Card.Text className="d-flex align-items-center">
@@ -55,7 +60,7 @@ const ProductCard = (props) => {
               </Button>
             </div>
 
-            <div className=" d-flex  mt-3 justify-content-center ">
+            <div className=" d-flex mt-3 justify-content-center ">
               <Button
                 style={{ width: "100%" }}
                 variant="danger"
