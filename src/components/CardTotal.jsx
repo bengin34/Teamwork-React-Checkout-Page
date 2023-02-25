@@ -1,20 +1,41 @@
 import ProductCard from "./ProductCard";
-import data from "../helper/data";
-import { useState } from "react";
+// import data from "../helper/data";
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 const CardTotal = () => {
-  const { id, name, image } = data;
-  const [newData, setNewData] = useState(data);
+  const [newData, setNewData] = useState([]);
 
-  const multiply = (productId) => {
-    const updatedData = newData.map((item) => {
-      if (item.id === productId) {
-        return { ...item, newPrice: item.amount * item.price };
-      }
-      return item;
-    });
-    setNewData(updatedData);
-  };
+
+  const getProductsFromApi = async() =>{
+try {
+  const BASE_URL = "https://63f9f851897af748dcc6a604.mockapi.io/products"
+  const  { data }  =  await axios(BASE_URL)
+    setNewData(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+  getProductsFromApi()
+  },[])
+
+
+
+
+
+
+
+  // const multiply = (productId) => {
+  //   const updatedData = newData.map((item) => {
+  //     if (item.id === productId) {
+  //       return { ...item, newPrice: item.amount * item.price };
+  //     }
+  //     return item;
+  //   });
+  //   setNewData(updatedData);
+  // };
 
   const increase = (productId) => {
     const updatedData = newData.map((item) => {
